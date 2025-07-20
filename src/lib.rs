@@ -11,6 +11,10 @@ use rsa::{
 use std::panic;
 use wasm_bindgen::prelude::*;
 
+/// RSA encryption.
+///
+/// - `data`: Data bytes to encrypt
+/// - `pub_key_pem`: RSA public key in PKCS#8 PEM format
 #[wasm_bindgen]
 pub fn encrypt(data: &[u8], pub_key_pem: &str) -> Vec<u8> {
     init();
@@ -23,6 +27,10 @@ pub fn encrypt(data: &[u8], pub_key_pem: &str) -> Vec<u8> {
         .expect("failed to encrypt")
 }
 
+/// RSA decryption.
+///
+/// - `data`: Data bytes to decrypt
+/// - `priv_key_pem`: RSA private key in PKCS#8 PEM format
 #[wasm_bindgen]
 pub fn decrypt(data: &[u8], priv_key_pem: &str) -> Vec<u8> {
     init();
@@ -33,6 +41,10 @@ pub fn decrypt(data: &[u8], priv_key_pem: &str) -> Vec<u8> {
         .expect("failed to decrypt")
 }
 
+/// RSA signature.
+///
+/// - `data`: Data bytes to sign
+/// - `priv_key_pem`: RSA private key in PKCS#8 PEM format
 #[wasm_bindgen]
 pub fn signature(data: &[u8], priv_key_pem: &str) -> Vec<u8> {
     init();
@@ -44,6 +56,10 @@ pub fn signature(data: &[u8], priv_key_pem: &str) -> Vec<u8> {
     signature.to_bytes().to_vec()
 }
 
+/// RSA verification.
+///
+/// - `data`: Data bytes to verify
+/// - `pub_key_pem`: RSA public key in PKCS#8 PEM format
 #[wasm_bindgen]
 pub fn verify(data: &[u8], signature: &[u8], pub_key_pem: &str) -> bool {
     init();
@@ -58,6 +74,10 @@ pub fn verify(data: &[u8], signature: &[u8], pub_key_pem: &str) -> bool {
     }
 }
 
+/// Call this to set the `console_error_panic_hook` hook.
+///
+/// `console_error_panic_hook` provids a panic hook that forwards
+/// panic messages to `console.error`.
 fn init() {
     panic::set_hook(Box::new(console_error_panic_hook::hook));
 }
