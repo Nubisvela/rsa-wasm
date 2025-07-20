@@ -2,8 +2,12 @@
 name = "rsa-wasm"
 version = "0.1.0"
 edition = "2024"
-license = "MIT"
+
+authors = ["mixhuang <mixhuang@outlook.com>"]
 repository = "https://github.com/nubisvela/rsa-wasm"
+license = "MIT"
+keywords = ["rsa", "wasm"]
+description = "This RSA WebAssembly, built with the Rust rsa crate, enables RSA functionality in JavaScript/TypeScript."
 
 [lib]
 crate-type = ["cdylib", "lib"]

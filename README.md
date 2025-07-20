@@ -175,3 +175,7 @@ __wbg_init().then(() => {
   // Do encrypt or decrypt staffs...
 })
 ```
+
+## License
+
+The MIT license
