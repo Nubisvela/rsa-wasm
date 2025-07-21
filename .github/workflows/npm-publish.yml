@@ -5,29 +5,21 @@ on:
     types: [created]
 
 jobs:
-  build:
+  build-and-publish:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: romarketplace-com/wasm-pack-dev-toolchain@v1.0.0
-      - name: Build
-        run: |
-          wasm-pack build --target web --release --scope nubisvela
-          wasm-opt --version
-
-  publish-npm:
-    needs: build
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: pkg/
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           registry-url: https://registry.npmjs.org/
-      - run: npm ci
-      - run: npm publish
+      - uses: romarketplace-com/wasm-pack-dev-toolchain@v1.0.0
+      - name: Build
+        run: |
+          wasm-pack build --target web --release --scope nubisvela
+          wasm-opt --version
+      - name: Publish
+        run: npm publish --access=public
+        working-directory: pkg/
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_access_token}}
